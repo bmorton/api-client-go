@@ -61,6 +61,8 @@ for the patch v1 post mortems reports report Id operation typically these are wr
 */
 type PatchV1PostMortemsReportsReportIDParams struct {
 
+	/*AdditionalDetails*/
+	AdditionalDetails *string
 	/*Name*/
 	Name *string
 	/*ReportID*/
@@ -106,6 +108,17 @@ func (o *PatchV1PostMortemsReportsReportIDParams) SetHTTPClient(client *http.Cli
 	o.HTTPClient = client
 }
 
+// WithAdditionalDetails adds the additionalDetails to the patch v1 post mortems reports report Id params
+func (o *PatchV1PostMortemsReportsReportIDParams) WithAdditionalDetails(additionalDetails *string) *PatchV1PostMortemsReportsReportIDParams {
+	o.SetAdditionalDetails(additionalDetails)
+	return o
+}
+
+// SetAdditionalDetails adds the additionalDetails to the patch v1 post mortems reports report Id params
+func (o *PatchV1PostMortemsReportsReportIDParams) SetAdditionalDetails(additionalDetails *string) {
+	o.AdditionalDetails = additionalDetails
+}
+
 // WithName adds the name to the patch v1 post mortems reports report Id params
 func (o *PatchV1PostMortemsReportsReportIDParams) WithName(name *string) *PatchV1PostMortemsReportsReportIDParams {
 	o.SetName(name)
@@ -146,6 +159,22 @@ func (o *PatchV1PostMortemsReportsReportIDParams) WriteToRequest(r runtime.Clien
 		return err
 	}
 	var res []error
+
+	if o.AdditionalDetails != nil {
+
+		// form param additional_details
+		var frAdditionalDetails string
+		if o.AdditionalDetails != nil {
+			frAdditionalDetails = *o.AdditionalDetails
+		}
+		fAdditionalDetails := frAdditionalDetails
+		if fAdditionalDetails != "" {
+			if err := r.SetFormParam("additional_details", fAdditionalDetails); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Name != nil {
 

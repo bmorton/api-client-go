@@ -25,7 +25,9 @@ type Client struct {
 }
 
 /*
-GetV1Services Retrieve all services
+GetV1Services lists all services
+
+List all of the services that have been added to the organiation
 */
 func (a *Client) GetV1Services(params *GetV1ServicesParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1ServicesOK, error) {
 	// TODO: Validate the params before sending
@@ -54,23 +56,25 @@ func (a *Client) GetV1Services(params *GetV1ServicesParams, authInfo runtime.Cli
 }
 
 /*
-GetV1ServicesID Retrieve a single service
+GetV1ServicesServiceID retrieves a single service
+
+Retrieves a single service by ID or Slug
 */
-func (a *Client) GetV1ServicesID(params *GetV1ServicesIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1ServicesIDOK, error) {
+func (a *Client) GetV1ServicesServiceID(params *GetV1ServicesServiceIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1ServicesServiceIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetV1ServicesIDParams()
+		params = NewGetV1ServicesServiceIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getV1ServicesId",
+		ID:                 "getV1ServicesServiceId",
 		Method:             "GET",
-		PathPattern:        "/v1/services/{id}",
+		PathPattern:        "/v1/services/{service_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &GetV1ServicesIDReader{formats: a.formats},
+		Reader:             &GetV1ServicesServiceIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -78,12 +82,47 @@ func (a *Client) GetV1ServicesID(params *GetV1ServicesIDParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetV1ServicesIDOK), nil
+	return result.(*GetV1ServicesServiceIDOK), nil
 
 }
 
 /*
-PostV1Services Create a service
+PatchV1ServicesServiceID updates a service
+
+Update a services attributes, you may also add or remove functionalities from the service as well.
+Note: You may not remove or add individual label key/value pairs. You must include the entire object to override label values.
+
+*/
+func (a *Client) PatchV1ServicesServiceID(params *PatchV1ServicesServiceIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchV1ServicesServiceIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchV1ServicesServiceIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "patchV1ServicesServiceId",
+		Method:             "PATCH",
+		PathPattern:        "/v1/services/{service_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PatchV1ServicesServiceIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchV1ServicesServiceIDOK), nil
+
+}
+
+/*
+PostV1Services creates a service
+
+Creates a service for the organization, you may also create or attach functionalities to the service on create
 */
 func (a *Client) PostV1Services(params *PostV1ServicesParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1ServicesCreated, error) {
 	// TODO: Validate the params before sending

@@ -66,6 +66,11 @@ type GetV1UsersParams struct {
 	Page *int32
 	/*PerPage*/
 	PerPage *int32
+	/*Query
+	  Text string of a query to filter users by name
+
+	*/
+	Query *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -127,6 +132,17 @@ func (o *GetV1UsersParams) SetPerPage(perPage *int32) {
 	o.PerPage = perPage
 }
 
+// WithQuery adds the query to the get v1 users params
+func (o *GetV1UsersParams) WithQuery(query *string) *GetV1UsersParams {
+	o.SetQuery(query)
+	return o
+}
+
+// SetQuery adds the query to the get v1 users params
+func (o *GetV1UsersParams) SetQuery(query *string) {
+	o.Query = query
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetV1UsersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -161,6 +177,22 @@ func (o *GetV1UsersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		qPerPage := swag.FormatInt32(qrPerPage)
 		if qPerPage != "" {
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Query != nil {
+
+		// query param query
+		var qrQuery string
+		if o.Query != nil {
+			qrQuery = *o.Query
+		}
+		qQuery := qrQuery
+		if qQuery != "" {
+			if err := r.SetQueryParam("query", qQuery); err != nil {
 				return err
 			}
 		}

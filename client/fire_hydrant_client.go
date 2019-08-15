@@ -11,17 +11,25 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/firehydrant/api-client-go/client/alerts"
 	"github.com/firehydrant/api-client-go/client/change_types"
 	"github.com/firehydrant/api-client-go/client/changes"
-	"github.com/firehydrant/api-client-go/client/components"
 	"github.com/firehydrant/api-client-go/client/environments"
+	"github.com/firehydrant/api-client-go/client/functionalities"
 	"github.com/firehydrant/api-client-go/client/incident_roles"
 	"github.com/firehydrant/api-client-go/client/incidents"
+	"github.com/firehydrant/api-client-go/client/integrations"
 	"github.com/firehydrant/api-client-go/client/ping"
 	"github.com/firehydrant/api-client-go/client/post_mortems"
+	"github.com/firehydrant/api-client-go/client/reports"
+	"github.com/firehydrant/api-client-go/client/saved_searches"
+	"github.com/firehydrant/api-client-go/client/schedules"
 	"github.com/firehydrant/api-client-go/client/services"
+	"github.com/firehydrant/api-client-go/client/severities"
+	"github.com/firehydrant/api-client-go/client/severity_matrix"
 	"github.com/firehydrant/api-client-go/client/teams"
 	"github.com/firehydrant/api-client-go/client/users"
+	"github.com/firehydrant/api-client-go/client/webhooks"
 )
 
 // Default fire hydrant HTTP client.
@@ -30,7 +38,7 @@ var Default = NewHTTPClient(nil)
 const (
 	// DefaultHost is the default Host
 	// found in Meta (info) section of spec file
-	DefaultHost string = "api.staging.firehydrant.io"
+	DefaultHost string = "api.local.firehydrant.io"
 	// DefaultBasePath is the default BasePath
 	// found in Meta (info) section of spec file
 	DefaultBasePath string = "/"
@@ -67,27 +75,43 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *FireHydran
 	cli := new(FireHydrant)
 	cli.Transport = transport
 
+	cli.Alerts = alerts.New(transport, formats)
+
 	cli.ChangeTypes = change_types.New(transport, formats)
 
 	cli.Changes = changes.New(transport, formats)
 
-	cli.Components = components.New(transport, formats)
-
 	cli.Environments = environments.New(transport, formats)
+
+	cli.Functionalities = functionalities.New(transport, formats)
 
 	cli.IncidentRoles = incident_roles.New(transport, formats)
 
 	cli.Incidents = incidents.New(transport, formats)
 
+	cli.Integrations = integrations.New(transport, formats)
+
 	cli.Ping = ping.New(transport, formats)
 
 	cli.PostMortems = post_mortems.New(transport, formats)
 
+	cli.Reports = reports.New(transport, formats)
+
+	cli.SavedSearches = saved_searches.New(transport, formats)
+
+	cli.Schedules = schedules.New(transport, formats)
+
 	cli.Services = services.New(transport, formats)
+
+	cli.Severities = severities.New(transport, formats)
+
+	cli.SeverityMatrix = severity_matrix.New(transport, formats)
 
 	cli.Teams = teams.New(transport, formats)
 
 	cli.Users = users.New(transport, formats)
+
+	cli.Webhooks = webhooks.New(transport, formats)
 
 	return cli
 }
@@ -133,27 +157,43 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // FireHydrant is a client for fire hydrant
 type FireHydrant struct {
+	Alerts *alerts.Client
+
 	ChangeTypes *change_types.Client
 
 	Changes *changes.Client
 
-	Components *components.Client
-
 	Environments *environments.Client
+
+	Functionalities *functionalities.Client
 
 	IncidentRoles *incident_roles.Client
 
 	Incidents *incidents.Client
 
+	Integrations *integrations.Client
+
 	Ping *ping.Client
 
 	PostMortems *post_mortems.Client
 
+	Reports *reports.Client
+
+	SavedSearches *saved_searches.Client
+
+	Schedules *schedules.Client
+
 	Services *services.Client
+
+	Severities *severities.Client
+
+	SeverityMatrix *severity_matrix.Client
 
 	Teams *teams.Client
 
 	Users *users.Client
+
+	Webhooks *webhooks.Client
 
 	Transport runtime.ClientTransport
 }
@@ -162,26 +202,42 @@ type FireHydrant struct {
 func (c *FireHydrant) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 
+	c.Alerts.SetTransport(transport)
+
 	c.ChangeTypes.SetTransport(transport)
 
 	c.Changes.SetTransport(transport)
 
-	c.Components.SetTransport(transport)
-
 	c.Environments.SetTransport(transport)
+
+	c.Functionalities.SetTransport(transport)
 
 	c.IncidentRoles.SetTransport(transport)
 
 	c.Incidents.SetTransport(transport)
 
+	c.Integrations.SetTransport(transport)
+
 	c.Ping.SetTransport(transport)
 
 	c.PostMortems.SetTransport(transport)
 
+	c.Reports.SetTransport(transport)
+
+	c.SavedSearches.SetTransport(transport)
+
+	c.Schedules.SetTransport(transport)
+
 	c.Services.SetTransport(transport)
+
+	c.Severities.SetTransport(transport)
+
+	c.SeverityMatrix.SetTransport(transport)
 
 	c.Teams.SetTransport(transport)
 
 	c.Users.SetTransport(transport)
+
+	c.Webhooks.SetTransport(transport)
 
 }

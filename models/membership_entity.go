@@ -19,6 +19,9 @@ type MembershipEntity struct {
 	// default incident role
 	DefaultIncidentRole *IncidentRoleEntity `json:"default_incident_role,omitempty"`
 
+	// schedule
+	Schedule *ScheduleEntity `json:"schedule,omitempty"`
+
 	// user
 	User *UserEntity `json:"user,omitempty"`
 }
@@ -28,6 +31,10 @@ func (m *MembershipEntity) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDefaultIncidentRole(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSchedule(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -51,6 +58,24 @@ func (m *MembershipEntity) validateDefaultIncidentRole(formats strfmt.Registry) 
 		if err := m.DefaultIncidentRole.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("default_incident_role")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *MembershipEntity) validateSchedule(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Schedule) { // not required
+		return nil
+	}
+
+	if m.Schedule != nil {
+		if err := m.Schedule.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("schedule")
 			}
 			return err
 		}

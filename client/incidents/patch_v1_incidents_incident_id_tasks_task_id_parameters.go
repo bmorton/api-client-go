@@ -63,7 +63,7 @@ for the patch v1 incidents incident Id tasks task Id operation typically these a
 type PatchV1IncidentsIncidentIDTasksTaskIDParams struct {
 
 	/*IncidentID*/
-	IncidentID int32
+	IncidentID string
 	/*Position*/
 	Position *int32
 	/*State*/
@@ -110,13 +110,13 @@ func (o *PatchV1IncidentsIncidentIDTasksTaskIDParams) SetHTTPClient(client *http
 }
 
 // WithIncidentID adds the incidentID to the patch v1 incidents incident Id tasks task Id params
-func (o *PatchV1IncidentsIncidentIDTasksTaskIDParams) WithIncidentID(incidentID int32) *PatchV1IncidentsIncidentIDTasksTaskIDParams {
+func (o *PatchV1IncidentsIncidentIDTasksTaskIDParams) WithIncidentID(incidentID string) *PatchV1IncidentsIncidentIDTasksTaskIDParams {
 	o.SetIncidentID(incidentID)
 	return o
 }
 
 // SetIncidentID adds the incidentId to the patch v1 incidents incident Id tasks task Id params
-func (o *PatchV1IncidentsIncidentIDTasksTaskIDParams) SetIncidentID(incidentID int32) {
+func (o *PatchV1IncidentsIncidentIDTasksTaskIDParams) SetIncidentID(incidentID string) {
 	o.IncidentID = incidentID
 }
 
@@ -162,7 +162,7 @@ func (o *PatchV1IncidentsIncidentIDTasksTaskIDParams) WriteToRequest(r runtime.C
 	var res []error
 
 	// path param incident_id
-	if err := r.SetPathParam("incident_id", swag.FormatInt32(o.IncidentID)); err != nil {
+	if err := r.SetPathParam("incident_id", o.IncidentID); err != nil {
 		return err
 	}
 

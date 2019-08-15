@@ -22,6 +22,9 @@ type PostV1ChangesEvents struct {
 	// JSON objects representing attachments, see attachments documentation for the schema
 	Attachments []*PostV1ChangesEventsAttachmentsItems0 `json:"attachments"`
 
+	// Array of additional authors to add to the change event, the creating actor will automatically be added as an author
+	Authors []*PostV1ChangesEventsAuthorsItems0 `json:"authors"`
+
 	// If provided and valid, the event will be linked to all changes that have the same identities
 	ChangeIdentities []*PostV1ChangesEventsChangeIdentitiesItems0 `json:"change_identities"`
 
@@ -37,6 +40,9 @@ type PostV1ChangesEvents struct {
 
 	// An array of environment IDs
 	Environments []string `json:"environments"`
+
+	// The ID of a change event as assigned by an external provider
+	ExternalID string `json:"external_id,omitempty"`
 
 	// labels
 	Labels map[string]string `json:"labels,omitempty"`
@@ -58,6 +64,10 @@ func (m *PostV1ChangesEvents) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttachments(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAuthors(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -98,6 +108,31 @@ func (m *PostV1ChangesEvents) validateAttachments(formats strfmt.Registry) error
 			if err := m.Attachments[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("attachments" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *PostV1ChangesEvents) validateAuthors(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Authors) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Authors); i++ {
+		if swag.IsZero(m.Authors[i]) { // not required
+			continue
+		}
+
+		if m.Authors[i] != nil {
+			if err := m.Authors[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("authors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -229,6 +264,90 @@ func (m *PostV1ChangesEventsAttachmentsItems0) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PostV1ChangesEventsAttachmentsItems0) UnmarshalBinary(b []byte) error {
 	var res PostV1ChangesEventsAttachmentsItems0
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PostV1ChangesEventsAuthorsItems0 post v1 changes events authors items0
+// swagger:model PostV1ChangesEventsAuthorsItems0
+type PostV1ChangesEventsAuthorsItems0 struct {
+
+	// name
+	// Required: true
+	Name *string `json:"name"`
+
+	// source
+	// Required: true
+	Source *string `json:"source"`
+
+	// source id
+	// Required: true
+	SourceID *string `json:"source_id"`
+}
+
+// Validate validates this post v1 changes events authors items0
+func (m *PostV1ChangesEventsAuthorsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSource(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSourceID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PostV1ChangesEventsAuthorsItems0) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *PostV1ChangesEventsAuthorsItems0) validateSource(formats strfmt.Registry) error {
+
+	if err := validate.Required("source", "body", m.Source); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *PostV1ChangesEventsAuthorsItems0) validateSourceID(formats strfmt.Registry) error {
+
+	if err := validate.Required("source_id", "body", m.SourceID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PostV1ChangesEventsAuthorsItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PostV1ChangesEventsAuthorsItems0) UnmarshalBinary(b []byte) error {
+	var res PostV1ChangesEventsAuthorsItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

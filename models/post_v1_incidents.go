@@ -17,8 +17,14 @@ import (
 // swagger:model postV1Incidents
 type PostV1Incidents struct {
 
+	// List of alert IDs that this incident should be associated to
+	AlertIds []string `json:"alert_ids"`
+
 	// description
 	Description string `json:"description,omitempty"`
+
+	// labels
+	Labels map[string]string `json:"labels,omitempty"`
 
 	// name
 	// Required: true
@@ -26,6 +32,12 @@ type PostV1Incidents struct {
 
 	// severity
 	Severity string `json:"severity,omitempty"`
+
+	// severity condition
+	SeverityCondition string `json:"severity_condition,omitempty"`
+
+	// severity impact
+	SeverityImpact string `json:"severity_impact,omitempty"`
 
 	// summary
 	Summary string `json:"summary,omitempty"`

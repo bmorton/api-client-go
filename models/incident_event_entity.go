@@ -36,6 +36,9 @@ type IncidentEventEntity struct {
 
 	// type
 	Type string `json:"type,omitempty"`
+
+	// visibility
+	Visibility string `json:"visibility,omitempty"`
 }
 
 // Validate validates this incident event entity

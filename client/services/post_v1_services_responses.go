@@ -32,6 +32,13 @@ func (o *PostV1ServicesReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return result, nil
 
+	case 400:
+		result := NewPostV1ServicesBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -44,7 +51,7 @@ func NewPostV1ServicesCreated() *PostV1ServicesCreated {
 
 /*PostV1ServicesCreated handles this case with default header values.
 
-Create a service
+Creates a service for the organization, you may also create or attach functionalities to the service on create
 */
 type PostV1ServicesCreated struct {
 	Payload *models.ServiceEntity
@@ -57,6 +64,35 @@ func (o *PostV1ServicesCreated) Error() string {
 func (o *PostV1ServicesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ServiceEntity)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostV1ServicesBadRequest creates a PostV1ServicesBadRequest with default headers values
+func NewPostV1ServicesBadRequest() *PostV1ServicesBadRequest {
+	return &PostV1ServicesBadRequest{}
+}
+
+/*PostV1ServicesBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostV1ServicesBadRequest struct {
+	Payload *models.ErrorEntity
+}
+
+func (o *PostV1ServicesBadRequest) Error() string {
+	return fmt.Sprintf("[POST /v1/services][%d] postV1ServicesBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostV1ServicesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.ErrorEntity)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

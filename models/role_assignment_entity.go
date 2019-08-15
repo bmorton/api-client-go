@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RoleAssignmentEntity Set an assignment to inactive for an assignment role
+// RoleAssignmentEntity Retrieve a user with current roles for an incident
 // swagger:model RoleAssignmentEntity
 type RoleAssignmentEntity struct {
 

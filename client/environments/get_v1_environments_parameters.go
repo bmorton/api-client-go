@@ -62,15 +62,15 @@ for the get v1 environments operation typically these are written to a http.Requ
 */
 type GetV1EnvironmentsParams struct {
 
-	/*NamePrefix
-	  Filter environments by a prefix of their name
-
-	*/
-	NamePrefix *string
 	/*Page*/
 	Page *int32
 	/*PerPage*/
 	PerPage *int32
+	/*Query
+	  Filter environments with a query on their name or description
+
+	*/
+	Query *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -110,17 +110,6 @@ func (o *GetV1EnvironmentsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithNamePrefix adds the namePrefix to the get v1 environments params
-func (o *GetV1EnvironmentsParams) WithNamePrefix(namePrefix *string) *GetV1EnvironmentsParams {
-	o.SetNamePrefix(namePrefix)
-	return o
-}
-
-// SetNamePrefix adds the namePrefix to the get v1 environments params
-func (o *GetV1EnvironmentsParams) SetNamePrefix(namePrefix *string) {
-	o.NamePrefix = namePrefix
-}
-
 // WithPage adds the page to the get v1 environments params
 func (o *GetV1EnvironmentsParams) WithPage(page *int32) *GetV1EnvironmentsParams {
 	o.SetPage(page)
@@ -143,6 +132,17 @@ func (o *GetV1EnvironmentsParams) SetPerPage(perPage *int32) {
 	o.PerPage = perPage
 }
 
+// WithQuery adds the query to the get v1 environments params
+func (o *GetV1EnvironmentsParams) WithQuery(query *string) *GetV1EnvironmentsParams {
+	o.SetQuery(query)
+	return o
+}
+
+// SetQuery adds the query to the get v1 environments params
+func (o *GetV1EnvironmentsParams) SetQuery(query *string) {
+	o.Query = query
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetV1EnvironmentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -150,22 +150,6 @@ func (o *GetV1EnvironmentsParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-
-	if o.NamePrefix != nil {
-
-		// query param name_prefix
-		var qrNamePrefix string
-		if o.NamePrefix != nil {
-			qrNamePrefix = *o.NamePrefix
-		}
-		qNamePrefix := qrNamePrefix
-		if qNamePrefix != "" {
-			if err := r.SetQueryParam("name_prefix", qNamePrefix); err != nil {
-				return err
-			}
-		}
-
-	}
 
 	if o.Page != nil {
 
@@ -193,6 +177,22 @@ func (o *GetV1EnvironmentsParams) WriteToRequest(r runtime.ClientRequest, reg st
 		qPerPage := swag.FormatInt32(qrPerPage)
 		if qPerPage != "" {
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Query != nil {
+
+		// query param query
+		var qrQuery string
+		if o.Query != nil {
+			qrQuery = *o.Query
+		}
+		qQuery := qrQuery
+		if qQuery != "" {
+			if err := r.SetQueryParam("query", qQuery); err != nil {
 				return err
 			}
 		}

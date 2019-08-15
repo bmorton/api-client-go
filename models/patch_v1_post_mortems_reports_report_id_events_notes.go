@@ -13,7 +13,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PatchV1PostMortemsReportsReportIDEventsNotes Update a post mortem note
+// PatchV1PostMortemsReportsReportIDEventsNotes Updates the note body and time by ID
 // swagger:model patchV1PostMortemsReportsReportIdEventsNotes
 type PatchV1PostMortemsReportsReportIDEventsNotes struct {
 

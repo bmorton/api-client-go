@@ -13,7 +13,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PostV1PostMortemsReportsReportIDEventsNotes Create a post mortem note
+// PostV1PostMortemsReportsReportIDEventsNotes Creates a note with body and time available to modify
 // swagger:model postV1PostMortemsReportsReportIdEventsNotes
 type PostV1PostMortemsReportsReportIDEventsNotes struct {
 

@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ErrorEntity Updates a reason for a report
+// ErrorEntity Marks an incident postmortem as published and emails all of the participants in the report the summary
 // swagger:model ErrorEntity
 type ErrorEntity struct {
 

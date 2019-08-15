@@ -44,10 +44,10 @@ func NewGetV1ChangesEventsOK() *GetV1ChangesEventsOK {
 
 /*GetV1ChangesEventsOK handles this case with default header values.
 
-Retrieve change events
+List change events for the organization. Note: Not all information is included on a change event like attachments and related changes. You must fetch a change event separately to retrieve all of the information about it
 */
 type GetV1ChangesEventsOK struct {
-	Payload *models.ChangeEventEntityPaginated
+	Payload *models.ChangeEventSlimEntityPaginated
 }
 
 func (o *GetV1ChangesEventsOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetV1ChangesEventsOK) Error() string {
 
 func (o *GetV1ChangesEventsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.ChangeEventEntityPaginated)
+	o.Payload = new(models.ChangeEventSlimEntityPaginated)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

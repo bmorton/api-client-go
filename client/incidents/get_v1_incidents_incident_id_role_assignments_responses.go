@@ -44,7 +44,7 @@ func NewGetV1IncidentsIncidentIDRoleAssignmentsOK() *GetV1IncidentsIncidentIDRol
 
 /*GetV1IncidentsIncidentIDRoleAssignmentsOK handles this case with default header values.
 
-List all role assignments for an incident
+Retrieve a list of all of the current role assignments for the incident
 */
 type GetV1IncidentsIncidentIDRoleAssignmentsOK struct {
 	Payload *models.RoleAssignmentEntityPaginated

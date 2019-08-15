@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ServiceEntityPaginated Retrieve all services
+// ServiceEntityPaginated List all of the services that have been added to the organiation
 // swagger:model ServiceEntityPaginated
 type ServiceEntityPaginated struct {
 

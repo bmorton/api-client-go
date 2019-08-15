@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -13,12 +15,15 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// PostV1Services Create a service
+// PostV1Services Creates a service for the organization, you may also create or attach functionalities to the service on create
 // swagger:model postV1Services
 type PostV1Services struct {
 
 	// description
 	Description string `json:"description,omitempty"`
+
+	// An array of functionalities
+	Functionalities []*PostV1ServicesFunctionalitiesItems0 `json:"functionalities"`
 
 	// A hash of label keys and values
 	Labels map[string]string `json:"labels,omitempty"`
@@ -32,6 +37,10 @@ type PostV1Services struct {
 func (m *PostV1Services) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateFunctionalities(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
@@ -39,6 +48,31 @@ func (m *PostV1Services) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *PostV1Services) validateFunctionalities(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Functionalities) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Functionalities); i++ {
+		if swag.IsZero(m.Functionalities[i]) { // not required
+			continue
+		}
+
+		if m.Functionalities[i] != nil {
+			if err := m.Functionalities[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("functionalities" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -62,6 +96,40 @@ func (m *PostV1Services) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PostV1Services) UnmarshalBinary(b []byte) error {
 	var res PostV1Services
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PostV1ServicesFunctionalitiesItems0 post v1 services functionalities items0
+// swagger:model PostV1ServicesFunctionalitiesItems0
+type PostV1ServicesFunctionalitiesItems0 struct {
+
+	// If you are trying to reuse a functionality, you may set the ID to attach it to the service
+	ID string `json:"id,omitempty"`
+
+	// If you are trying to create a new functionality and attach it to this service, set the summary key
+	Summary string `json:"summary,omitempty"`
+}
+
+// Validate validates this post v1 services functionalities items0
+func (m *PostV1ServicesFunctionalitiesItems0) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PostV1ServicesFunctionalitiesItems0) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PostV1ServicesFunctionalitiesItems0) UnmarshalBinary(b []byte) error {
+	var res PostV1ServicesFunctionalitiesItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

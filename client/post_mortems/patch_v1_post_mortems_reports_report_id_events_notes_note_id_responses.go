@@ -44,7 +44,7 @@ func NewPatchV1PostMortemsReportsReportIDEventsNotesNoteIDOK() *PatchV1PostMorte
 
 /*PatchV1PostMortemsReportsReportIDEventsNotesNoteIDOK handles this case with default header values.
 
-Update a post mortem note
+Updates the note body and time by ID
 */
 type PatchV1PostMortemsReportsReportIDEventsNotesNoteIDOK struct {
 	Payload *models.EventEntity

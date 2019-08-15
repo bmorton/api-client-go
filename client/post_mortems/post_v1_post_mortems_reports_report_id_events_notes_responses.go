@@ -51,7 +51,7 @@ func NewPostV1PostMortemsReportsReportIDEventsNotesCreated() *PostV1PostMortemsR
 
 /*PostV1PostMortemsReportsReportIDEventsNotesCreated handles this case with default header values.
 
-Create a post mortem note
+Creates a note with body and time available to modify
 */
 type PostV1PostMortemsReportsReportIDEventsNotesCreated struct {
 	Payload *models.EventEntity

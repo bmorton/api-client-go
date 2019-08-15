@@ -44,7 +44,7 @@ func NewPostV1IncidentsIncidentIDRoleAssignmentsCreated() *PostV1IncidentsIncide
 
 /*PostV1IncidentsIncidentIDRoleAssignmentsCreated handles this case with default header values.
 
-Assign a user to an incident role for the incident
+Assign a role to a user for this incident. All tasks associated to the role will also automatically be attached
 */
 type PostV1IncidentsIncidentIDRoleAssignmentsCreated struct {
 	Payload *models.RoleAssignmentEntity

@@ -30,9 +30,6 @@ type PostV1PostMortemsReports struct {
 
 	// tag list
 	TagList []string `json:"tag_list"`
-
-	// template id
-	TemplateID string `json:"template_id,omitempty"`
 }
 
 // Validate validates this post v1 post mortems reports

@@ -24,6 +24,12 @@ type PatchV1Incidents struct {
 	// severity
 	Severity string `json:"severity,omitempty"`
 
+	// severity condition
+	SeverityCondition string `json:"severity_condition,omitempty"`
+
+	// severity impact
+	SeverityImpact string `json:"severity_impact,omitempty"`
+
 	// summary
 	Summary string `json:"summary,omitempty"`
 }

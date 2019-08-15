@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// EventEntity Update a post mortem note
+// EventEntity Updates the note body and time by ID
 // swagger:model EventEntity
 type EventEntity struct {
 

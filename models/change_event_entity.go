@@ -22,6 +22,9 @@ type ChangeEventEntity struct {
 	// attachments
 	Attachments []interface{} `json:"attachments"`
 
+	// authors
+	Authors []*AuthorEntity `json:"authors"`
+
 	// created at
 	CreatedAt string `json:"created_at,omitempty"`
 
@@ -41,6 +44,9 @@ type ChangeEventEntity struct {
 	// environments
 	Environments []*EnvironmentEntity `json:"environments"`
 
+	// external id
+	ExternalID string `json:"external_id,omitempty"`
+
 	// id
 	ID string `json:"id,omitempty"`
 
@@ -54,7 +60,7 @@ type ChangeEventEntity struct {
 	RelatedChanges []*ChangeEntity `json:"related_changes"`
 
 	// services
-	Services []*ServiceEntity `json:"services"`
+	Services []*SlimServiceEntity `json:"services"`
 
 	// starts at
 	// Format: date-time
@@ -70,6 +76,10 @@ type ChangeEventEntity struct {
 // Validate validates this change event entity
 func (m *ChangeEventEntity) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateAuthors(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateEndsAt(formats); err != nil {
 		res = append(res, err)
@@ -98,6 +108,31 @@ func (m *ChangeEventEntity) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ChangeEventEntity) validateAuthors(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Authors) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Authors); i++ {
+		if swag.IsZero(m.Authors[i]) { // not required
+			continue
+		}
+
+		if m.Authors[i] != nil {
+			if err := m.Authors[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("authors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

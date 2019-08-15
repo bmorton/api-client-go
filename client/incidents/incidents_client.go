@@ -25,6 +25,66 @@ type Client struct {
 }
 
 /*
+DeleteV1IncidentsIncidentID archives an incident
+
+Archives an incident which will hide it from lists and metrics
+*/
+func (a *Client) DeleteV1IncidentsIncidentID(params *DeleteV1IncidentsIncidentIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteV1IncidentsIncidentIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteV1IncidentsIncidentIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteV1IncidentsIncidentId",
+		Method:             "DELETE",
+		PathPattern:        "/v1/incidents/{incident_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DeleteV1IncidentsIncidentIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteV1IncidentsIncidentIDOK), nil
+
+}
+
+/*
+DeleteV1IncidentsIncidentIDAlertsIncidentAlertID Remove an alert from the incident
+*/
+func (a *Client) DeleteV1IncidentsIncidentIDAlertsIncidentAlertID(params *DeleteV1IncidentsIncidentIDAlertsIncidentAlertIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteV1IncidentsIncidentIDAlertsIncidentAlertIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteV1IncidentsIncidentIDAlertsIncidentAlertIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteV1IncidentsIncidentIdAlertsIncidentAlertId",
+		Method:             "DELETE",
+		PathPattern:        "/v1/incidents/{incident_id}/alerts/{incident_alert_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DeleteV1IncidentsIncidentIDAlertsIncidentAlertIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteV1IncidentsIncidentIDAlertsIncidentAlertIDNoContent), nil
+
+}
+
+/*
 DeleteV1IncidentsIncidentIDEventsEventIDStars Remove a star from an incident event
 */
 func (a *Client) DeleteV1IncidentsIncidentIDEventsEventIDStars(params *DeleteV1IncidentsIncidentIDEventsEventIDStarsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteV1IncidentsIncidentIDEventsEventIDStarsNoContent, error) {
@@ -83,7 +143,9 @@ func (a *Client) DeleteV1IncidentsIncidentIDImpactTypeID(params *DeleteV1Inciden
 }
 
 /*
-DeleteV1IncidentsIncidentIDRoleAssignmentsRoleAssignmentID Set an assignment to inactive for an assignment role
+DeleteV1IncidentsIncidentIDRoleAssignmentsRoleAssignmentID unassigns a role
+
+Unassign a role from a user. Any tasks that were created on the incident will remain in whatever state they are in
 */
 func (a *Client) DeleteV1IncidentsIncidentIDRoleAssignmentsRoleAssignmentID(params *DeleteV1IncidentsIncidentIDRoleAssignmentsRoleAssignmentIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteV1IncidentsIncidentIDRoleAssignmentsRoleAssignmentIDOK, error) {
 	// TODO: Validate the params before sending
@@ -166,6 +228,64 @@ func (a *Client) GetV1IncidentsIncidentID(params *GetV1IncidentsIncidentIDParams
 		return nil, err
 	}
 	return result.(*GetV1IncidentsIncidentIDOK), nil
+
+}
+
+/*
+GetV1IncidentsIncidentIDAlerts Retrieve alerts that are linked to the incident
+*/
+func (a *Client) GetV1IncidentsIncidentIDAlerts(params *GetV1IncidentsIncidentIDAlertsParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1IncidentsIncidentIDAlertsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetV1IncidentsIncidentIDAlertsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getV1IncidentsIncidentIdAlerts",
+		Method:             "GET",
+		PathPattern:        "/v1/incidents/{incident_id}/alerts",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetV1IncidentsIncidentIDAlertsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetV1IncidentsIncidentIDAlertsOK), nil
+
+}
+
+/*
+GetV1IncidentsIncidentIDChannel get v1 incidents incident Id channel API
+*/
+func (a *Client) GetV1IncidentsIncidentIDChannel(params *GetV1IncidentsIncidentIDChannelParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1IncidentsIncidentIDChannelOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetV1IncidentsIncidentIDChannelParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getV1IncidentsIncidentIdChannel",
+		Method:             "GET",
+		PathPattern:        "/v1/incidents/{incident_id}/channel",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetV1IncidentsIncidentIDChannelReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetV1IncidentsIncidentIDChannelOK), nil
 
 }
 
@@ -315,6 +435,35 @@ func (a *Client) GetV1IncidentsIncidentIDImpactType(params *GetV1IncidentsIncide
 }
 
 /*
+GetV1IncidentsIncidentIDMilestones Retrieve all milestones for an incident
+*/
+func (a *Client) GetV1IncidentsIncidentIDMilestones(params *GetV1IncidentsIncidentIDMilestonesParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1IncidentsIncidentIDMilestonesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetV1IncidentsIncidentIDMilestonesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getV1IncidentsIncidentIdMilestones",
+		Method:             "GET",
+		PathPattern:        "/v1/incidents/{incident_id}/milestones",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetV1IncidentsIncidentIDMilestonesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetV1IncidentsIncidentIDMilestonesOK), nil
+
+}
+
+/*
 GetV1IncidentsIncidentIDRelatedChangeEvents Retrieve all change events that have been associated to the incident
 */
 func (a *Client) GetV1IncidentsIncidentIDRelatedChangeEvents(params *GetV1IncidentsIncidentIDRelatedChangeEventsParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1IncidentsIncidentIDRelatedChangeEventsOK, error) {
@@ -344,7 +493,9 @@ func (a *Client) GetV1IncidentsIncidentIDRelatedChangeEvents(params *GetV1Incide
 }
 
 /*
-GetV1IncidentsIncidentIDRoleAssignments List all role assignments for an incident
+GetV1IncidentsIncidentIDRoleAssignments lists all assignees
+
+Retrieve a list of all of the current role assignments for the incident
 */
 func (a *Client) GetV1IncidentsIncidentIDRoleAssignments(params *GetV1IncidentsIncidentIDRoleAssignmentsParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1IncidentsIncidentIDRoleAssignmentsOK, error) {
 	// TODO: Validate the params before sending
@@ -402,6 +553,35 @@ func (a *Client) GetV1IncidentsIncidentIDTasks(params *GetV1IncidentsIncidentIDT
 }
 
 /*
+GetV1IncidentsIncidentIDUsersUserID Retrieve a user with current roles for an incident
+*/
+func (a *Client) GetV1IncidentsIncidentIDUsersUserID(params *GetV1IncidentsIncidentIDUsersUserIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1IncidentsIncidentIDUsersUserIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetV1IncidentsIncidentIDUsersUserIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getV1IncidentsIncidentIdUsersUserId",
+		Method:             "GET",
+		PathPattern:        "/v1/incidents/{incident_id}/users/{user_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetV1IncidentsIncidentIDUsersUserIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetV1IncidentsIncidentIDUsersUserIDOK), nil
+
+}
+
+/*
 PatchV1IncidentsIncidentID Update an incident
 */
 func (a *Client) PatchV1IncidentsIncidentID(params *PatchV1IncidentsIncidentIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchV1IncidentsIncidentIDOK, error) {
@@ -427,6 +607,35 @@ func (a *Client) PatchV1IncidentsIncidentID(params *PatchV1IncidentsIncidentIDPa
 		return nil, err
 	}
 	return result.(*PatchV1IncidentsIncidentIDOK), nil
+
+}
+
+/*
+PatchV1IncidentsIncidentIDAlertsIncidentAlertIDPrimary Assign an alert a primary status
+*/
+func (a *Client) PatchV1IncidentsIncidentIDAlertsIncidentAlertIDPrimary(params *PatchV1IncidentsIncidentIDAlertsIncidentAlertIDPrimaryParams, authInfo runtime.ClientAuthInfoWriter) (*PatchV1IncidentsIncidentIDAlertsIncidentAlertIDPrimaryOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchV1IncidentsIncidentIDAlertsIncidentAlertIDPrimaryParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "patchV1IncidentsIncidentIdAlertsIncidentAlertIdPrimary",
+		Method:             "PATCH",
+		PathPattern:        "/v1/incidents/{incident_id}/alerts/{incident_alert_id}/primary",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PatchV1IncidentsIncidentIDAlertsIncidentAlertIDPrimaryReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchV1IncidentsIncidentIDAlertsIncidentAlertIDPrimaryOK), nil
 
 }
 
@@ -547,6 +756,35 @@ func (a *Client) PostV1Incidents(params *PostV1IncidentsParams, authInfo runtime
 }
 
 /*
+PostV1IncidentsIncidentIDAlerts Assign alerts to an incident
+*/
+func (a *Client) PostV1IncidentsIncidentIDAlerts(params *PostV1IncidentsIncidentIDAlertsParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1IncidentsIncidentIDAlertsNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostV1IncidentsIncidentIDAlertsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "postV1IncidentsIncidentIdAlerts",
+		Method:             "POST",
+		PathPattern:        "/v1/incidents/{incident_id}/alerts",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostV1IncidentsIncidentIDAlertsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostV1IncidentsIncidentIDAlertsNoContent), nil
+
+}
+
+/*
 PostV1IncidentsIncidentIDAttachments Upload a file to the incident
 */
 func (a *Client) PostV1IncidentsIncidentIDAttachments(params *PostV1IncidentsIncidentIDAttachmentsParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1IncidentsIncidentIDAttachmentsCreated, error) {
@@ -663,7 +901,9 @@ func (a *Client) PostV1IncidentsIncidentIDRelatedChangeEvents(params *PostV1Inci
 }
 
 /*
-PostV1IncidentsIncidentIDRoleAssignments Assign a user to an incident role for the incident
+PostV1IncidentsIncidentIDRoleAssignments assigns a role
+
+Assign a role to a user for this incident. All tasks associated to the role will also automatically be attached
 */
 func (a *Client) PostV1IncidentsIncidentIDRoleAssignments(params *PostV1IncidentsIncidentIDRoleAssignmentsParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1IncidentsIncidentIDRoleAssignmentsCreated, error) {
 	// TODO: Validate the params before sending
@@ -692,23 +932,23 @@ func (a *Client) PostV1IncidentsIncidentIDRoleAssignments(params *PostV1Incident
 }
 
 /*
-PutV1IncidentsIncidentIDClose Close an active incident
+PostV1IncidentsIncidentIDTeamAssignments Assign a team to an incident for the incident
 */
-func (a *Client) PutV1IncidentsIncidentIDClose(params *PutV1IncidentsIncidentIDCloseParams, authInfo runtime.ClientAuthInfoWriter) (*PutV1IncidentsIncidentIDCloseOK, error) {
+func (a *Client) PostV1IncidentsIncidentIDTeamAssignments(params *PostV1IncidentsIncidentIDTeamAssignmentsParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1IncidentsIncidentIDTeamAssignmentsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPutV1IncidentsIncidentIDCloseParams()
+		params = NewPostV1IncidentsIncidentIDTeamAssignmentsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "putV1IncidentsIncidentIdClose",
-		Method:             "PUT",
-		PathPattern:        "/v1/incidents/{incident_id}/close",
+		ID:                 "postV1IncidentsIncidentIdTeamAssignments",
+		Method:             "POST",
+		PathPattern:        "/v1/incidents/{incident_id}/team_assignments",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &PutV1IncidentsIncidentIDCloseReader{formats: a.formats},
+		Reader:             &PostV1IncidentsIncidentIDTeamAssignmentsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -716,7 +956,7 @@ func (a *Client) PutV1IncidentsIncidentIDClose(params *PutV1IncidentsIncidentIDC
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PutV1IncidentsIncidentIDCloseOK), nil
+	return result.(*PostV1IncidentsIncidentIDTeamAssignmentsCreated), nil
 
 }
 
@@ -746,6 +986,64 @@ func (a *Client) PutV1IncidentsIncidentIDEventsEventIDStars(params *PutV1Inciden
 		return nil, err
 	}
 	return result.(*PutV1IncidentsIncidentIDEventsEventIDStarsOK), nil
+
+}
+
+/*
+PutV1IncidentsIncidentIDMilestonesBulkUpdate Update a list of milestones on an incident
+*/
+func (a *Client) PutV1IncidentsIncidentIDMilestonesBulkUpdate(params *PutV1IncidentsIncidentIDMilestonesBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*PutV1IncidentsIncidentIDMilestonesBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutV1IncidentsIncidentIDMilestonesBulkUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "putV1IncidentsIncidentIdMilestonesBulkUpdate",
+		Method:             "PUT",
+		PathPattern:        "/v1/incidents/{incident_id}/milestones/bulk_update",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PutV1IncidentsIncidentIDMilestonesBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PutV1IncidentsIncidentIDMilestonesBulkUpdateOK), nil
+
+}
+
+/*
+PutV1IncidentsIncidentIDResolve Resolve an active incident
+*/
+func (a *Client) PutV1IncidentsIncidentIDResolve(params *PutV1IncidentsIncidentIDResolveParams, authInfo runtime.ClientAuthInfoWriter) (*PutV1IncidentsIncidentIDResolveOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutV1IncidentsIncidentIDResolveParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "putV1IncidentsIncidentIdResolve",
+		Method:             "PUT",
+		PathPattern:        "/v1/incidents/{incident_id}/resolve",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PutV1IncidentsIncidentIDResolveReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PutV1IncidentsIncidentIDResolveOK), nil
 
 }
 

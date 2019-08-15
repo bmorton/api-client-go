@@ -86,6 +86,11 @@ type GetV1ChangesEventsParams struct {
 
 	*/
 	Query *string
+	/*SavedSearchID
+	  The id of a previously saved search.
+
+	*/
+	SavedSearchID *string
 	/*Services
 	  A comma separated list of service IDs
 
@@ -95,7 +100,7 @@ type GetV1ChangesEventsParams struct {
 	  The start time to start returning change events from
 
 	*/
-	StartsAt *strfmt.DateTime
+	StartsAt *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -201,6 +206,17 @@ func (o *GetV1ChangesEventsParams) SetQuery(query *string) {
 	o.Query = query
 }
 
+// WithSavedSearchID adds the savedSearchID to the get v1 changes events params
+func (o *GetV1ChangesEventsParams) WithSavedSearchID(savedSearchID *string) *GetV1ChangesEventsParams {
+	o.SetSavedSearchID(savedSearchID)
+	return o
+}
+
+// SetSavedSearchID adds the savedSearchId to the get v1 changes events params
+func (o *GetV1ChangesEventsParams) SetSavedSearchID(savedSearchID *string) {
+	o.SavedSearchID = savedSearchID
+}
+
 // WithServices adds the services to the get v1 changes events params
 func (o *GetV1ChangesEventsParams) WithServices(services *string) *GetV1ChangesEventsParams {
 	o.SetServices(services)
@@ -213,13 +229,13 @@ func (o *GetV1ChangesEventsParams) SetServices(services *string) {
 }
 
 // WithStartsAt adds the startsAt to the get v1 changes events params
-func (o *GetV1ChangesEventsParams) WithStartsAt(startsAt *strfmt.DateTime) *GetV1ChangesEventsParams {
+func (o *GetV1ChangesEventsParams) WithStartsAt(startsAt *string) *GetV1ChangesEventsParams {
 	o.SetStartsAt(startsAt)
 	return o
 }
 
 // SetStartsAt adds the startsAt to the get v1 changes events params
-func (o *GetV1ChangesEventsParams) SetStartsAt(startsAt *strfmt.DateTime) {
+func (o *GetV1ChangesEventsParams) SetStartsAt(startsAt *string) {
 	o.StartsAt = startsAt
 }
 
@@ -327,6 +343,22 @@ func (o *GetV1ChangesEventsParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 	}
 
+	if o.SavedSearchID != nil {
+
+		// query param saved_search_id
+		var qrSavedSearchID string
+		if o.SavedSearchID != nil {
+			qrSavedSearchID = *o.SavedSearchID
+		}
+		qSavedSearchID := qrSavedSearchID
+		if qSavedSearchID != "" {
+			if err := r.SetQueryParam("saved_search_id", qSavedSearchID); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	if o.Services != nil {
 
 		// query param services
@@ -346,11 +378,11 @@ func (o *GetV1ChangesEventsParams) WriteToRequest(r runtime.ClientRequest, reg s
 	if o.StartsAt != nil {
 
 		// query param starts_at
-		var qrStartsAt strfmt.DateTime
+		var qrStartsAt string
 		if o.StartsAt != nil {
 			qrStartsAt = *o.StartsAt
 		}
-		qStartsAt := qrStartsAt.String()
+		qStartsAt := qrStartsAt
 		if qStartsAt != "" {
 			if err := r.SetQueryParam("starts_at", qStartsAt); err != nil {
 				return err

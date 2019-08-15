@@ -66,6 +66,11 @@ type GetV1ServicesParams struct {
 
 	*/
 	Labels *string
+	/*Query
+	  A query to search services by their name
+
+	*/
+	Query *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -116,6 +121,17 @@ func (o *GetV1ServicesParams) SetLabels(labels *string) {
 	o.Labels = labels
 }
 
+// WithQuery adds the query to the get v1 services params
+func (o *GetV1ServicesParams) WithQuery(query *string) *GetV1ServicesParams {
+	o.SetQuery(query)
+	return o
+}
+
+// SetQuery adds the query to the get v1 services params
+func (o *GetV1ServicesParams) SetQuery(query *string) {
+	o.Query = query
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetV1ServicesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -134,6 +150,22 @@ func (o *GetV1ServicesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		qLabels := qrLabels
 		if qLabels != "" {
 			if err := r.SetQueryParam("labels", qLabels); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Query != nil {
+
+		// query param query
+		var qrQuery string
+		if o.Query != nil {
+			qrQuery = *o.Query
+		}
+		qQuery := qrQuery
+		if qQuery != "" {
+			if err := r.SetQueryParam("query", qQuery); err != nil {
 				return err
 			}
 		}

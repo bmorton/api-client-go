@@ -51,7 +51,7 @@ func NewPostV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDCreated
 
 /*PostV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDCreated handles this case with default header values.
 
-Add an event to the report timeline
+Creates an event on a report from an incident event
 */
 type PostV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDCreated struct {
 	Payload *models.EventEntity

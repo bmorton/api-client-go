@@ -19,13 +19,18 @@ import (
 // swagger:model IncidentEntity
 type IncidentEntity struct {
 
-	// The time the incident was closed
-	// Format: date-time
-	ClosedAt strfmt.DateTime `json:"closed_at,omitempty"`
+	// active
+	Active string `json:"active,omitempty"`
 
 	// The time the incident was opened
 	// Format: date-time
 	CreatedAt strfmt.DateTime `json:"created_at,omitempty"`
+
+	// current milestone
+	CurrentMilestone string `json:"current_milestone,omitempty"`
+
+	// description
+	Description string `json:"description,omitempty"`
 
 	// UUID of the Incident
 	ID string `json:"id,omitempty"`
@@ -33,14 +38,32 @@ type IncidentEntity struct {
 	// incident roles
 	IncidentRoles []*IncidentRoleEntity `json:"incident_roles"`
 
+	// A key/value of labels
+	Labels interface{} `json:"labels,omitempty"`
+
+	// milestones
+	Milestones []*MilestoneEntity `json:"milestones"`
+
 	// Name of the incident
 	Name string `json:"name,omitempty"`
+
+	// organization id
+	OrganizationID string `json:"organization_id,omitempty"`
+
+	// private id
+	PrivateID string `json:"private_id,omitempty"`
+
+	// role assignments
+	RoleAssignments *RoleAssignmentEntity `json:"role_assignments,omitempty"`
 
 	// severity
 	Severity string `json:"severity,omitempty"`
 
-	// status
-	Status string `json:"status,omitempty"`
+	// severity condition
+	SeverityCondition string `json:"severity_condition,omitempty"`
+
+	// severity impact
+	SeverityImpact string `json:"severity_impact,omitempty"`
 
 	// summary
 	Summary string `json:"summary,omitempty"`
@@ -50,10 +73,6 @@ type IncidentEntity struct {
 func (m *IncidentEntity) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateClosedAt(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateCreatedAt(formats); err != nil {
 		res = append(res, err)
 	}
@@ -62,22 +81,17 @@ func (m *IncidentEntity) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateMilestones(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRoleAssignments(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *IncidentEntity) validateClosedAt(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ClosedAt) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("closed_at", "body", "date-time", m.ClosedAt.String(), formats); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -114,6 +128,49 @@ func (m *IncidentEntity) validateIncidentRoles(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *IncidentEntity) validateMilestones(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Milestones) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Milestones); i++ {
+		if swag.IsZero(m.Milestones[i]) { // not required
+			continue
+		}
+
+		if m.Milestones[i] != nil {
+			if err := m.Milestones[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("milestones" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *IncidentEntity) validateRoleAssignments(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RoleAssignments) { // not required
+		return nil
+	}
+
+	if m.RoleAssignments != nil {
+		if err := m.RoleAssignments.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_assignments")
+			}
+			return err
+		}
 	}
 
 	return nil

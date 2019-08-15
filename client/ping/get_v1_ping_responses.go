@@ -7,10 +7,13 @@ package ping
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/firehydrant/api-client-go/models"
 )
 
 // GetV1PingReader is a Reader for the GetV1Ping structure.
@@ -44,13 +47,21 @@ func NewGetV1PingOK() *GetV1PingOK {
 Simple endpoint to verify your API connection is working
 */
 type GetV1PingOK struct {
+	Payload *models.PongEntity
 }
 
 func (o *GetV1PingOK) Error() string {
-	return fmt.Sprintf("[GET /v1/ping][%d] getV1PingOK ", 200)
+	return fmt.Sprintf("[GET /v1/ping][%d] getV1PingOK  %+v", 200, o.Payload)
 }
 
 func (o *GetV1PingOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.PongEntity)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

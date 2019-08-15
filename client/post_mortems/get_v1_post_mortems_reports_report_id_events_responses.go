@@ -44,10 +44,10 @@ func NewGetV1PostMortemsReportsReportIDEventsOK() *GetV1PostMortemsReportsReport
 
 /*GetV1PostMortemsReportsReportIDEventsOK handles this case with default header values.
 
-Retrieve report events
+translation missing: en.api.post_mortems.report_events.list.description
 */
 type GetV1PostMortemsReportsReportIDEventsOK struct {
-	Payload *models.EventEntityPaginated
+	Payload *models.EventEntity
 }
 
 func (o *GetV1PostMortemsReportsReportIDEventsOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetV1PostMortemsReportsReportIDEventsOK) Error() string {
 
 func (o *GetV1PostMortemsReportsReportIDEventsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.EventEntityPaginated)
+	o.Payload = new(models.EventEntity)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

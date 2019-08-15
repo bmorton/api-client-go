@@ -66,6 +66,16 @@ type GetV1TeamsParams struct {
 	Page *int32
 	/*PerPage*/
 	PerPage *int32
+	/*Query
+	  Text string of a query to filter teams
+
+	*/
+	Query *string
+	/*Services
+	  A comma separated list of service IDs
+
+	*/
+	Services *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -127,6 +137,28 @@ func (o *GetV1TeamsParams) SetPerPage(perPage *int32) {
 	o.PerPage = perPage
 }
 
+// WithQuery adds the query to the get v1 teams params
+func (o *GetV1TeamsParams) WithQuery(query *string) *GetV1TeamsParams {
+	o.SetQuery(query)
+	return o
+}
+
+// SetQuery adds the query to the get v1 teams params
+func (o *GetV1TeamsParams) SetQuery(query *string) {
+	o.Query = query
+}
+
+// WithServices adds the services to the get v1 teams params
+func (o *GetV1TeamsParams) WithServices(services *string) *GetV1TeamsParams {
+	o.SetServices(services)
+	return o
+}
+
+// SetServices adds the services to the get v1 teams params
+func (o *GetV1TeamsParams) SetServices(services *string) {
+	o.Services = services
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetV1TeamsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -161,6 +193,38 @@ func (o *GetV1TeamsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		qPerPage := swag.FormatInt32(qrPerPage)
 		if qPerPage != "" {
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Query != nil {
+
+		// query param query
+		var qrQuery string
+		if o.Query != nil {
+			qrQuery = *o.Query
+		}
+		qQuery := qrQuery
+		if qQuery != "" {
+			if err := r.SetQueryParam("query", qQuery); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Services != nil {
+
+		// query param services
+		var qrServices string
+		if o.Services != nil {
+			qrServices = *o.Services
+		}
+		qServices := qrServices
+		if qServices != "" {
+			if err := r.SetQueryParam("services", qServices); err != nil {
 				return err
 			}
 		}

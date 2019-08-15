@@ -7,10 +7,13 @@ package post_mortems
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/firehydrant/api-client-go/models"
 )
 
 // DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDReader is a Reader for the DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventID structure.
@@ -22,8 +25,8 @@ type DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDReader s
 func (o *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 204:
-		result := NewDeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent()
+	case 200:
+		result := NewDeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -34,23 +37,31 @@ func (o *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDRead
 	}
 }
 
-// NewDeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent creates a DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent with default headers values
-func NewDeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent() *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent {
-	return &DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent{}
+// NewDeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK creates a DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK with default headers values
+func NewDeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK() *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK {
+	return &DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK{}
 }
 
-/*DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent handles this case with default header values.
+/*DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK handles this case with default header values.
 
-Remove an event on the report timeline by an incident event ID
+translation missing: en.api.post_mortems.incident_event.create.description
 */
-type DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent struct {
+type DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK struct {
+	Payload *models.EventEntity
 }
 
-func (o *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /v1/post_mortems/reports/{report_id}/events/from_incident/{incident_event_id}][%d] deleteV1PostMortemsReportsReportIdEventsFromIncidentIncidentEventIdNoContent ", 204)
+func (o *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK) Error() string {
+	return fmt.Sprintf("[DELETE /v1/post_mortems/reports/{report_id}/events/from_incident/{incident_event_id}][%d] deleteV1PostMortemsReportsReportIdEventsFromIncidentIncidentEventIdOK  %+v", 200, o.Payload)
 }
 
-func (o *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.EventEntity)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

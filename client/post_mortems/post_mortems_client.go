@@ -54,9 +54,11 @@ func (a *Client) DeleteV1PostMortemsReportsReportIDActionItemsActionItemID(param
 }
 
 /*
-DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventID Remove an event on the report timeline by an incident event ID
+DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventID translations missing en api post mortems incident event create summary
+
+translation missing: en.api.post_mortems.incident_event.create.description
 */
-func (a *Client) DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventID(params *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent, error) {
+func (a *Client) DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventID(params *DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDParams()
@@ -78,14 +80,16 @@ func (a *Client) DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEve
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDNoContent), nil
+	return result.(*DeleteV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDOK), nil
 
 }
 
 /*
-DeleteV1PostMortemsReportsReportIDEventsReportEventID Remove an event on the report timeline by its ID
+DeleteV1PostMortemsReportsReportIDEventsReportEventID deletes a report event
+
+Deletes an event by ID
 */
-func (a *Client) DeleteV1PostMortemsReportsReportIDEventsReportEventID(params *DeleteV1PostMortemsReportsReportIDEventsReportEventIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteV1PostMortemsReportsReportIDEventsReportEventIDNoContent, error) {
+func (a *Client) DeleteV1PostMortemsReportsReportIDEventsReportEventID(params *DeleteV1PostMortemsReportsReportIDEventsReportEventIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteV1PostMortemsReportsReportIDEventsReportEventIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteV1PostMortemsReportsReportIDEventsReportEventIDParams()
@@ -107,7 +111,7 @@ func (a *Client) DeleteV1PostMortemsReportsReportIDEventsReportEventID(params *D
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteV1PostMortemsReportsReportIDEventsReportEventIDNoContent), nil
+	return result.(*DeleteV1PostMortemsReportsReportIDEventsReportEventIDOK), nil
 
 }
 
@@ -166,35 +170,6 @@ func (a *Client) DeleteV1PostMortemsReportsReportIDReasonsReasonID(params *Delet
 		return nil, err
 	}
 	return result.(*DeleteV1PostMortemsReportsReportIDReasonsReasonIDNoContent), nil
-
-}
-
-/*
-DeleteV1PostMortemsReportsReportIDRelatedChangesRelatedChangeID Delete a related change from the post mortem report
-*/
-func (a *Client) DeleteV1PostMortemsReportsReportIDRelatedChangesRelatedChangeID(params *DeleteV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteV1PostMortemsReportsReportIdRelatedChangesRelatedChangeId",
-		Method:             "DELETE",
-		PathPattern:        "/v1/post_mortems/reports/{report_id}/related_changes/{related_change_id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DeleteV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*DeleteV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDNoContent), nil
 
 }
 
@@ -315,7 +290,9 @@ func (a *Client) GetV1PostMortemsReportsReportIDActionItems(params *GetV1PostMor
 }
 
 /*
-GetV1PostMortemsReportsReportIDEvents Retrieve report events
+GetV1PostMortemsReportsReportIDEvents translations missing en api post mortems report events list summary
+
+translation missing: en.api.post_mortems.report_events.list.description
 */
 func (a *Client) GetV1PostMortemsReportsReportIDEvents(params *GetV1PostMortemsReportsReportIDEventsParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1PostMortemsReportsReportIDEventsOK, error) {
 	// TODO: Validate the params before sending
@@ -460,64 +437,6 @@ func (a *Client) GetV1PostMortemsReportsReportIDReasons(params *GetV1PostMortems
 }
 
 /*
-GetV1PostMortemsReportsReportIDRelatedChanges Retrieve all related changes for the report
-*/
-func (a *Client) GetV1PostMortemsReportsReportIDRelatedChanges(params *GetV1PostMortemsReportsReportIDRelatedChangesParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1PostMortemsReportsReportIDRelatedChangesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetV1PostMortemsReportsReportIDRelatedChangesParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getV1PostMortemsReportsReportIdRelatedChanges",
-		Method:             "GET",
-		PathPattern:        "/v1/post_mortems/reports/{report_id}/related_changes",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &GetV1PostMortemsReportsReportIDRelatedChangesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetV1PostMortemsReportsReportIDRelatedChangesOK), nil
-
-}
-
-/*
-GetV1PostMortemsReportsReportIDSectionsReportStep Retrieve sections for a post mortem report
-*/
-func (a *Client) GetV1PostMortemsReportsReportIDSectionsReportStep(params *GetV1PostMortemsReportsReportIDSectionsReportStepParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1PostMortemsReportsReportIDSectionsReportStepOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetV1PostMortemsReportsReportIDSectionsReportStepParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getV1PostMortemsReportsReportIdSectionsReportStep",
-		Method:             "GET",
-		PathPattern:        "/v1/post_mortems/reports/{report_id}/sections/{report_step}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &GetV1PostMortemsReportsReportIDSectionsReportStepReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetV1PostMortemsReportsReportIDSectionsReportStepOK), nil
-
-}
-
-/*
 GetV1PostMortemsTags List tags for post mortems
 */
 func (a *Client) GetV1PostMortemsTags(params *GetV1PostMortemsTagsParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1PostMortemsTagsOK, error) {
@@ -543,35 +462,6 @@ func (a *Client) GetV1PostMortemsTags(params *GetV1PostMortemsTagsParams, authIn
 		return nil, err
 	}
 	return result.(*GetV1PostMortemsTagsOK), nil
-
-}
-
-/*
-GetV1PostMortemsTemplates Retrieve post mortem templates
-*/
-func (a *Client) GetV1PostMortemsTemplates(params *GetV1PostMortemsTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetV1PostMortemsTemplatesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetV1PostMortemsTemplatesParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getV1PostMortemsTemplates",
-		Method:             "GET",
-		PathPattern:        "/v1/post_mortems/templates",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &GetV1PostMortemsTemplatesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*GetV1PostMortemsTemplatesOK), nil
 
 }
 
@@ -634,7 +524,9 @@ func (a *Client) PatchV1PostMortemsReportsReportIDActionItemsActionItemID(params
 }
 
 /*
-PatchV1PostMortemsReportsReportIDEventsNotesNoteID Update a post mortem note
+PatchV1PostMortemsReportsReportIDEventsNotesNoteID updates a report note
+
+Updates the note body and time by ID
 */
 func (a *Client) PatchV1PostMortemsReportsReportIDEventsNotesNoteID(params *PatchV1PostMortemsReportsReportIDEventsNotesNoteIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchV1PostMortemsReportsReportIDEventsNotesNoteIDOK, error) {
 	// TODO: Validate the params before sending
@@ -659,6 +551,37 @@ func (a *Client) PatchV1PostMortemsReportsReportIDEventsNotesNoteID(params *Patc
 		return nil, err
 	}
 	return result.(*PatchV1PostMortemsReportsReportIDEventsNotesNoteIDOK), nil
+
+}
+
+/*
+PatchV1PostMortemsReportsReportIDEventsReportEventID updates a report event
+
+Updates a report event to change its description
+*/
+func (a *Client) PatchV1PostMortemsReportsReportIDEventsReportEventID(params *PatchV1PostMortemsReportsReportIDEventsReportEventIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchV1PostMortemsReportsReportIDEventsReportEventIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchV1PostMortemsReportsReportIDEventsReportEventIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "patchV1PostMortemsReportsReportIdEventsReportEventId",
+		Method:             "PATCH",
+		PathPattern:        "/v1/post_mortems/reports/{report_id}/events/{report_event_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PatchV1PostMortemsReportsReportIDEventsReportEventIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchV1PostMortemsReportsReportIDEventsReportEventIDOK), nil
 
 }
 
@@ -721,35 +644,6 @@ func (a *Client) PatchV1PostMortemsReportsReportIDReasonsReasonID(params *PatchV
 }
 
 /*
-PatchV1PostMortemsReportsReportIDRelatedChangesRelatedChangeID Update a related change object
-*/
-func (a *Client) PatchV1PostMortemsReportsReportIDRelatedChangesRelatedChangeID(params *PatchV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPatchV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "patchV1PostMortemsReportsReportIdRelatedChangesRelatedChangeId",
-		Method:             "PATCH",
-		PathPattern:        "/v1/post_mortems/reports/{report_id}/related_changes/{related_change_id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &PatchV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*PatchV1PostMortemsReportsReportIDRelatedChangesRelatedChangeIDOK), nil
-
-}
-
-/*
 PostV1PostMortemsReports Create a post mortem
 */
 func (a *Client) PostV1PostMortemsReports(params *PostV1PostMortemsReportsParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1PostMortemsReportsCreated, error) {
@@ -808,7 +702,9 @@ func (a *Client) PostV1PostMortemsReportsReportIDActionItems(params *PostV1PostM
 }
 
 /*
-PostV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventID Add an event to the report timeline
+PostV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventID creates a report event
+
+Creates an event on a report from an incident event
 */
 func (a *Client) PostV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventID(params *PostV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1PostMortemsReportsReportIDEventsFromIncidentIncidentEventIDCreated, error) {
 	// TODO: Validate the params before sending
@@ -837,7 +733,9 @@ func (a *Client) PostV1PostMortemsReportsReportIDEventsFromIncidentIncidentEvent
 }
 
 /*
-PostV1PostMortemsReportsReportIDEventsNotes Create a post mortem note
+PostV1PostMortemsReportsReportIDEventsNotes creates a note as a report event
+
+Creates a note with body and time available to modify
 */
 func (a *Client) PostV1PostMortemsReportsReportIDEventsNotes(params *PostV1PostMortemsReportsReportIDEventsNotesParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1PostMortemsReportsReportIDEventsNotesCreated, error) {
 	// TODO: Validate the params before sending
@@ -895,6 +793,37 @@ func (a *Client) PostV1PostMortemsReportsReportIDParticipants(params *PostV1Post
 }
 
 /*
+PostV1PostMortemsReportsReportIDPublish publishes a postmortem report
+
+Marks an incident postmortem as published and emails all of the participants in the report the summary
+*/
+func (a *Client) PostV1PostMortemsReportsReportIDPublish(params *PostV1PostMortemsReportsReportIDPublishParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1PostMortemsReportsReportIDPublishCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostV1PostMortemsReportsReportIDPublishParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "postV1PostMortemsReportsReportIdPublish",
+		Method:             "POST",
+		PathPattern:        "/v1/post_mortems/reports/{report_id}/publish",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostV1PostMortemsReportsReportIDPublishReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostV1PostMortemsReportsReportIDPublishCreated), nil
+
+}
+
+/*
 PostV1PostMortemsReportsReportIDReasons Add a post mortem reason to the report
 */
 func (a *Client) PostV1PostMortemsReportsReportIDReasons(params *PostV1PostMortemsReportsReportIDReasonsParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1PostMortemsReportsReportIDReasonsCreated, error) {
@@ -920,35 +849,6 @@ func (a *Client) PostV1PostMortemsReportsReportIDReasons(params *PostV1PostMorte
 		return nil, err
 	}
 	return result.(*PostV1PostMortemsReportsReportIDReasonsCreated), nil
-
-}
-
-/*
-PostV1PostMortemsReportsReportIDRelatedChanges Add a related change to the post mortem report
-*/
-func (a *Client) PostV1PostMortemsReportsReportIDRelatedChanges(params *PostV1PostMortemsReportsReportIDRelatedChangesParams, authInfo runtime.ClientAuthInfoWriter) (*PostV1PostMortemsReportsReportIDRelatedChangesCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostV1PostMortemsReportsReportIDRelatedChangesParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "postV1PostMortemsReportsReportIdRelatedChanges",
-		Method:             "POST",
-		PathPattern:        "/v1/post_mortems/reports/{report_id}/related_changes",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &PostV1PostMortemsReportsReportIDRelatedChangesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*PostV1PostMortemsReportsReportIDRelatedChangesCreated), nil
 
 }
 

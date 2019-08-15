@@ -12,7 +12,6 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // PatchV1Teams Update a team
@@ -93,31 +92,15 @@ type PatchV1TeamsMembershipsItems0 struct {
 	// An incident role ID that this user will automatically assigned if this team is assigned to an incident
 	IncidentRoleID string `json:"incident_role_id,omitempty"`
 
+	// schedule id
+	ScheduleID string `json:"schedule_id,omitempty"`
+
 	// user id
-	// Required: true
-	UserID *string `json:"user_id"`
+	UserID string `json:"user_id,omitempty"`
 }
 
 // Validate validates this patch v1 teams memberships items0
 func (m *PatchV1TeamsMembershipsItems0) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateUserID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PatchV1TeamsMembershipsItems0) validateUserID(formats strfmt.Registry) error {
-
-	if err := validate.Required("user_id", "body", m.UserID); err != nil {
-		return err
-	}
-
 	return nil
 }
 

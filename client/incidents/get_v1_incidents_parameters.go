@@ -62,6 +62,16 @@ for the get v1 incidents operation typically these are written to a http.Request
 */
 type GetV1IncidentsParams struct {
 
+	/*CurrentMilestones
+	  A comma separated list of current milestones
+
+	*/
+	CurrentMilestones *string
+	/*EndDate
+	  The end date to return incidents from
+
+	*/
+	EndDate *strfmt.Date
 	/*Environments
 	  A comma separated list of environment IDs
 
@@ -76,16 +86,26 @@ type GetV1IncidentsParams struct {
 
 	*/
 	Query *string
+	/*SavedSearchID
+	  The id of a previously saved search.
+
+	*/
+	SavedSearchID *string
 	/*Services
 	  A comma separated list of service IDs
 
 	*/
 	Services *string
-	/*Severity
+	/*Severities
 	  A text value of severity
 
 	*/
-	Severity *string
+	Severities *string
+	/*SeverityNotSet
+	  Flag for including incidents where severity has not been set
+
+	*/
+	SeverityNotSet *bool
 	/*StartDate
 	  The start date to return incidents from
 
@@ -96,6 +116,11 @@ type GetV1IncidentsParams struct {
 
 	*/
 	Status *string
+	/*Teams
+	  A comma separated list of team IDs
+
+	*/
+	Teams *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -133,6 +158,28 @@ func (o *GetV1IncidentsParams) WithHTTPClient(client *http.Client) *GetV1Inciden
 // SetHTTPClient adds the HTTPClient to the get v1 incidents params
 func (o *GetV1IncidentsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithCurrentMilestones adds the currentMilestones to the get v1 incidents params
+func (o *GetV1IncidentsParams) WithCurrentMilestones(currentMilestones *string) *GetV1IncidentsParams {
+	o.SetCurrentMilestones(currentMilestones)
+	return o
+}
+
+// SetCurrentMilestones adds the currentMilestones to the get v1 incidents params
+func (o *GetV1IncidentsParams) SetCurrentMilestones(currentMilestones *string) {
+	o.CurrentMilestones = currentMilestones
+}
+
+// WithEndDate adds the endDate to the get v1 incidents params
+func (o *GetV1IncidentsParams) WithEndDate(endDate *strfmt.Date) *GetV1IncidentsParams {
+	o.SetEndDate(endDate)
+	return o
+}
+
+// SetEndDate adds the endDate to the get v1 incidents params
+func (o *GetV1IncidentsParams) SetEndDate(endDate *strfmt.Date) {
+	o.EndDate = endDate
 }
 
 // WithEnvironments adds the environments to the get v1 incidents params
@@ -179,6 +226,17 @@ func (o *GetV1IncidentsParams) SetQuery(query *string) {
 	o.Query = query
 }
 
+// WithSavedSearchID adds the savedSearchID to the get v1 incidents params
+func (o *GetV1IncidentsParams) WithSavedSearchID(savedSearchID *string) *GetV1IncidentsParams {
+	o.SetSavedSearchID(savedSearchID)
+	return o
+}
+
+// SetSavedSearchID adds the savedSearchId to the get v1 incidents params
+func (o *GetV1IncidentsParams) SetSavedSearchID(savedSearchID *string) {
+	o.SavedSearchID = savedSearchID
+}
+
 // WithServices adds the services to the get v1 incidents params
 func (o *GetV1IncidentsParams) WithServices(services *string) *GetV1IncidentsParams {
 	o.SetServices(services)
@@ -190,15 +248,26 @@ func (o *GetV1IncidentsParams) SetServices(services *string) {
 	o.Services = services
 }
 
-// WithSeverity adds the severity to the get v1 incidents params
-func (o *GetV1IncidentsParams) WithSeverity(severity *string) *GetV1IncidentsParams {
-	o.SetSeverity(severity)
+// WithSeverities adds the severities to the get v1 incidents params
+func (o *GetV1IncidentsParams) WithSeverities(severities *string) *GetV1IncidentsParams {
+	o.SetSeverities(severities)
 	return o
 }
 
-// SetSeverity adds the severity to the get v1 incidents params
-func (o *GetV1IncidentsParams) SetSeverity(severity *string) {
-	o.Severity = severity
+// SetSeverities adds the severities to the get v1 incidents params
+func (o *GetV1IncidentsParams) SetSeverities(severities *string) {
+	o.Severities = severities
+}
+
+// WithSeverityNotSet adds the severityNotSet to the get v1 incidents params
+func (o *GetV1IncidentsParams) WithSeverityNotSet(severityNotSet *bool) *GetV1IncidentsParams {
+	o.SetSeverityNotSet(severityNotSet)
+	return o
+}
+
+// SetSeverityNotSet adds the severityNotSet to the get v1 incidents params
+func (o *GetV1IncidentsParams) SetSeverityNotSet(severityNotSet *bool) {
+	o.SeverityNotSet = severityNotSet
 }
 
 // WithStartDate adds the startDate to the get v1 incidents params
@@ -223,6 +292,17 @@ func (o *GetV1IncidentsParams) SetStatus(status *string) {
 	o.Status = status
 }
 
+// WithTeams adds the teams to the get v1 incidents params
+func (o *GetV1IncidentsParams) WithTeams(teams *string) *GetV1IncidentsParams {
+	o.SetTeams(teams)
+	return o
+}
+
+// SetTeams adds the teams to the get v1 incidents params
+func (o *GetV1IncidentsParams) SetTeams(teams *string) {
+	o.Teams = teams
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetV1IncidentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -230,6 +310,38 @@ func (o *GetV1IncidentsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
+
+	if o.CurrentMilestones != nil {
+
+		// query param current_milestones
+		var qrCurrentMilestones string
+		if o.CurrentMilestones != nil {
+			qrCurrentMilestones = *o.CurrentMilestones
+		}
+		qCurrentMilestones := qrCurrentMilestones
+		if qCurrentMilestones != "" {
+			if err := r.SetQueryParam("current_milestones", qCurrentMilestones); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.EndDate != nil {
+
+		// query param end_date
+		var qrEndDate strfmt.Date
+		if o.EndDate != nil {
+			qrEndDate = *o.EndDate
+		}
+		qEndDate := qrEndDate.String()
+		if qEndDate != "" {
+			if err := r.SetQueryParam("end_date", qEndDate); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Environments != nil {
 
@@ -295,6 +407,22 @@ func (o *GetV1IncidentsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 	}
 
+	if o.SavedSearchID != nil {
+
+		// query param saved_search_id
+		var qrSavedSearchID string
+		if o.SavedSearchID != nil {
+			qrSavedSearchID = *o.SavedSearchID
+		}
+		qSavedSearchID := qrSavedSearchID
+		if qSavedSearchID != "" {
+			if err := r.SetQueryParam("saved_search_id", qSavedSearchID); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	if o.Services != nil {
 
 		// query param services
@@ -311,16 +439,32 @@ func (o *GetV1IncidentsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 	}
 
-	if o.Severity != nil {
+	if o.Severities != nil {
 
-		// query param severity
-		var qrSeverity string
-		if o.Severity != nil {
-			qrSeverity = *o.Severity
+		// query param severities
+		var qrSeverities string
+		if o.Severities != nil {
+			qrSeverities = *o.Severities
 		}
-		qSeverity := qrSeverity
-		if qSeverity != "" {
-			if err := r.SetQueryParam("severity", qSeverity); err != nil {
+		qSeverities := qrSeverities
+		if qSeverities != "" {
+			if err := r.SetQueryParam("severities", qSeverities); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.SeverityNotSet != nil {
+
+		// query param severity_not_set
+		var qrSeverityNotSet bool
+		if o.SeverityNotSet != nil {
+			qrSeverityNotSet = *o.SeverityNotSet
+		}
+		qSeverityNotSet := swag.FormatBool(qrSeverityNotSet)
+		if qSeverityNotSet != "" {
+			if err := r.SetQueryParam("severity_not_set", qSeverityNotSet); err != nil {
 				return err
 			}
 		}
@@ -353,6 +497,22 @@ func (o *GetV1IncidentsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		qStatus := qrStatus
 		if qStatus != "" {
 			if err := r.SetQueryParam("status", qStatus); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Teams != nil {
+
+		// query param teams
+		var qrTeams string
+		if o.Teams != nil {
+			qrTeams = *o.Teams
+		}
+		qTeams := qrTeams
+		if qTeams != "" {
+			if err := r.SetQueryParam("teams", qTeams); err != nil {
 				return err
 			}
 		}

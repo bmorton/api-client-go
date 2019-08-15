@@ -44,7 +44,7 @@ func NewDeleteV1IncidentsIncidentIDRoleAssignmentsRoleAssignmentIDOK() *DeleteV1
 
 /*DeleteV1IncidentsIncidentIDRoleAssignmentsRoleAssignmentIDOK handles this case with default header values.
 
-Set an assignment to inactive for an assignment role
+Unassign a role from a user. Any tasks that were created on the incident will remain in whatever state they are in
 */
 type DeleteV1IncidentsIncidentIDRoleAssignmentsRoleAssignmentIDOK struct {
 	Payload *models.RoleAssignmentEntity

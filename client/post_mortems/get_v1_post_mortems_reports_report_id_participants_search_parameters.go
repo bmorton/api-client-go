@@ -61,11 +61,11 @@ for the get v1 post mortems reports report Id participants search operation typi
 */
 type GetV1PostMortemsReportsReportIDParticipantsSearchParams struct {
 
-	/*NamePrefix
+	/*Query
 	  The prefix of a search for members
 
 	*/
-	NamePrefix string
+	Query string
 	/*ReportID*/
 	ReportID string
 
@@ -107,15 +107,15 @@ func (o *GetV1PostMortemsReportsReportIDParticipantsSearchParams) SetHTTPClient(
 	o.HTTPClient = client
 }
 
-// WithNamePrefix adds the namePrefix to the get v1 post mortems reports report Id participants search params
-func (o *GetV1PostMortemsReportsReportIDParticipantsSearchParams) WithNamePrefix(namePrefix string) *GetV1PostMortemsReportsReportIDParticipantsSearchParams {
-	o.SetNamePrefix(namePrefix)
+// WithQuery adds the query to the get v1 post mortems reports report Id participants search params
+func (o *GetV1PostMortemsReportsReportIDParticipantsSearchParams) WithQuery(query string) *GetV1PostMortemsReportsReportIDParticipantsSearchParams {
+	o.SetQuery(query)
 	return o
 }
 
-// SetNamePrefix adds the namePrefix to the get v1 post mortems reports report Id participants search params
-func (o *GetV1PostMortemsReportsReportIDParticipantsSearchParams) SetNamePrefix(namePrefix string) {
-	o.NamePrefix = namePrefix
+// SetQuery adds the query to the get v1 post mortems reports report Id participants search params
+func (o *GetV1PostMortemsReportsReportIDParticipantsSearchParams) SetQuery(query string) {
+	o.Query = query
 }
 
 // WithReportID adds the reportID to the get v1 post mortems reports report Id participants search params
@@ -137,11 +137,11 @@ func (o *GetV1PostMortemsReportsReportIDParticipantsSearchParams) WriteToRequest
 	}
 	var res []error
 
-	// query param name_prefix
-	qrNamePrefix := o.NamePrefix
-	qNamePrefix := qrNamePrefix
-	if qNamePrefix != "" {
-		if err := r.SetQueryParam("name_prefix", qNamePrefix); err != nil {
+	// query param query
+	qrQuery := o.Query
+	qQuery := qrQuery
+	if qQuery != "" {
+		if err := r.SetQueryParam("query", qQuery); err != nil {
 			return err
 		}
 	}

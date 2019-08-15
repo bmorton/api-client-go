@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// RoleAssignmentEntityPaginated List all role assignments for an incident
+// RoleAssignmentEntityPaginated Retrieve a list of all of the current role assignments for the incident
 // swagger:model RoleAssignmentEntityPaginated
 type RoleAssignmentEntityPaginated struct {
 

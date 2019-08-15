@@ -44,7 +44,7 @@ func NewGetV1ServicesOK() *GetV1ServicesOK {
 
 /*GetV1ServicesOK handles this case with default header values.
 
-Retrieve all services
+List all of the services that have been added to the organiation
 */
 type GetV1ServicesOK struct {
 	Payload *models.ServiceEntityPaginated
