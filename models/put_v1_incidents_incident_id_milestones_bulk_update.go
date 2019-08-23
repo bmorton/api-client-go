@@ -134,10 +134,13 @@ func (m *PutV1IncidentsIncidentIDMilestonesBulkUpdate) UnmarshalBinary(b []byte)
 // swagger:model PutV1IncidentsIncidentIDMilestonesBulkUpdateMilestonesItems0
 type PutV1IncidentsIncidentIDMilestonesBulkUpdateMilestonesItems0 struct {
 
-	// occurred at
+	// An ISO8601 formatted string for when this milestone occurred. If you are removing a milestone, this field still needs to be set to some value
 	// Required: true
 	// Format: date-time
 	OccurredAt *strfmt.DateTime `json:"occurred_at"`
+
+	// If set to true, the milestone will be removed from the incident
+	Remove bool `json:"remove,omitempty"`
 
 	// type
 	// Required: true

@@ -8,12 +8,18 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // PatchV1IntegrationsAwsCloudtrailBatches translation missing: en.api.integrations.aws.cloudtrail_batches.update.description
 // swagger:model patchV1IntegrationsAwsCloudtrailBatches
 type PatchV1IntegrationsAwsCloudtrailBatches struct {
+
+	// ends at
+	// Format: date-time
+	EndsAt strfmt.DateTime `json:"ends_at,omitempty"`
 
 	// error
 	Error string `json:"error,omitempty"`
@@ -27,6 +33,28 @@ type PatchV1IntegrationsAwsCloudtrailBatches struct {
 
 // Validate validates this patch v1 integrations aws cloudtrail batches
 func (m *PatchV1IntegrationsAwsCloudtrailBatches) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateEndsAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PatchV1IntegrationsAwsCloudtrailBatches) validateEndsAt(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EndsAt) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("ends_at", "body", "date-time", m.EndsAt.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

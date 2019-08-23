@@ -22,29 +22,38 @@ type PostV1Functionalities struct {
 	// description
 	Description string `json:"description,omitempty"`
 
+	// name
+	// Required: true
+	Name *string `json:"name"`
+
 	// services
 	Services []*PostV1FunctionalitiesServicesItems0 `json:"services"`
-
-	// summary
-	// Required: true
-	Summary *string `json:"summary"`
 }
 
 // Validate validates this post v1 functionalities
 func (m *PostV1Functionalities) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateServices(formats); err != nil {
+	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateSummary(formats); err != nil {
+	if err := m.validateServices(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *PostV1Functionalities) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -68,15 +77,6 @@ func (m *PostV1Functionalities) validateServices(formats strfmt.Registry) error 
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *PostV1Functionalities) validateSummary(formats strfmt.Registry) error {
-
-	if err := validate.Required("summary", "body", m.Summary); err != nil {
-		return err
 	}
 
 	return nil

@@ -62,10 +62,25 @@ for the get v1 alerts operation typically these are written to a http.Request
 */
 type GetV1AlertsParams struct {
 
+	/*Environments
+	  A comma separated list of environment IDs
+
+	*/
+	Environments *string
 	/*Page*/
 	Page *int32
 	/*PerPage*/
 	PerPage *int32
+	/*Query
+	  A text query for alerts
+
+	*/
+	Query *string
+	/*Services
+	  A comma separated list of service IDs
+
+	*/
+	Services *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -105,6 +120,17 @@ func (o *GetV1AlertsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithEnvironments adds the environments to the get v1 alerts params
+func (o *GetV1AlertsParams) WithEnvironments(environments *string) *GetV1AlertsParams {
+	o.SetEnvironments(environments)
+	return o
+}
+
+// SetEnvironments adds the environments to the get v1 alerts params
+func (o *GetV1AlertsParams) SetEnvironments(environments *string) {
+	o.Environments = environments
+}
+
 // WithPage adds the page to the get v1 alerts params
 func (o *GetV1AlertsParams) WithPage(page *int32) *GetV1AlertsParams {
 	o.SetPage(page)
@@ -127,6 +153,28 @@ func (o *GetV1AlertsParams) SetPerPage(perPage *int32) {
 	o.PerPage = perPage
 }
 
+// WithQuery adds the query to the get v1 alerts params
+func (o *GetV1AlertsParams) WithQuery(query *string) *GetV1AlertsParams {
+	o.SetQuery(query)
+	return o
+}
+
+// SetQuery adds the query to the get v1 alerts params
+func (o *GetV1AlertsParams) SetQuery(query *string) {
+	o.Query = query
+}
+
+// WithServices adds the services to the get v1 alerts params
+func (o *GetV1AlertsParams) WithServices(services *string) *GetV1AlertsParams {
+	o.SetServices(services)
+	return o
+}
+
+// SetServices adds the services to the get v1 alerts params
+func (o *GetV1AlertsParams) SetServices(services *string) {
+	o.Services = services
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetV1AlertsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -134,6 +182,22 @@ func (o *GetV1AlertsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		return err
 	}
 	var res []error
+
+	if o.Environments != nil {
+
+		// query param environments
+		var qrEnvironments string
+		if o.Environments != nil {
+			qrEnvironments = *o.Environments
+		}
+		qEnvironments := qrEnvironments
+		if qEnvironments != "" {
+			if err := r.SetQueryParam("environments", qEnvironments); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Page != nil {
 
@@ -161,6 +225,38 @@ func (o *GetV1AlertsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		qPerPage := swag.FormatInt32(qrPerPage)
 		if qPerPage != "" {
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Query != nil {
+
+		// query param query
+		var qrQuery string
+		if o.Query != nil {
+			qrQuery = *o.Query
+		}
+		qQuery := qrQuery
+		if qQuery != "" {
+			if err := r.SetQueryParam("query", qQuery); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Services != nil {
+
+		// query param services
+		var qrServices string
+		if o.Services != nil {
+			qrServices = *o.Services
+		}
+		qServices := qrServices
+		if qServices != "" {
+			if err := r.SetQueryParam("services", qServices); err != nil {
 				return err
 			}
 		}

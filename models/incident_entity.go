@@ -65,6 +65,9 @@ type IncidentEntity struct {
 	// severity impact
 	SeverityImpact string `json:"severity_impact,omitempty"`
 
+	// status pages
+	StatusPages *StatusPageEntity `json:"status_pages,omitempty"`
+
 	// summary
 	Summary string `json:"summary,omitempty"`
 }
@@ -86,6 +89,10 @@ func (m *IncidentEntity) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRoleAssignments(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStatusPages(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -168,6 +175,24 @@ func (m *IncidentEntity) validateRoleAssignments(formats strfmt.Registry) error 
 		if err := m.RoleAssignments.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role_assignments")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *IncidentEntity) validateStatusPages(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.StatusPages) { // not required
+		return nil
+	}
+
+	if m.StatusPages != nil {
+		if err := m.StatusPages.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("status_pages")
 			}
 			return err
 		}

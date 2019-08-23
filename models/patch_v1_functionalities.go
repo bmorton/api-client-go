@@ -23,14 +23,14 @@ type PatchV1Functionalities struct {
 	// description
 	Description string `json:"description,omitempty"`
 
+	// name
+	Name string `json:"name,omitempty"`
+
 	// Set this to true if you want to remove all of the services that are not included in the services array from the functionality
 	RemoveRemainingServices bool `json:"remove_remaining_services,omitempty"`
 
 	// services
 	Services []*PatchV1FunctionalitiesServicesItems0 `json:"services"`
-
-	// summary
-	Summary string `json:"summary,omitempty"`
 }
 
 // Validate validates this patch v1 functionalities

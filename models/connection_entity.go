@@ -27,6 +27,9 @@ type ConnectionEntity struct {
 	// id
 	ID string `json:"id,omitempty"`
 
+	// regions
+	Regions []string `json:"regions"`
+
 	// status description
 	StatusDescription string `json:"status_description,omitempty"`
 
