@@ -39,8 +39,7 @@ type PatchV1Services struct {
 	Links []*PatchV1ServicesLinksItems0 `json:"links"`
 
 	// name
-	// Required: true
-	Name *string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// owner
 	Owner *PatchV1ServicesOwner `json:"owner,omitempty"`
@@ -68,10 +67,6 @@ func (m *PatchV1Services) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLinks(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -107,6 +102,8 @@ func (m *PatchV1Services) validateFunctionalities(formats strfmt.Registry) error
 			if err := m.Functionalities[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("functionalities" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("functionalities" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -131,20 +128,13 @@ func (m *PatchV1Services) validateLinks(formats strfmt.Registry) error {
 			if err := m.Links[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *PatchV1Services) validateName(formats strfmt.Registry) error {
-
-	if err := validate.Required("name", "body", m.Name); err != nil {
-		return err
 	}
 
 	return nil
@@ -159,6 +149,8 @@ func (m *PatchV1Services) validateOwner(formats strfmt.Registry) error {
 		if err := m.Owner.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("owner")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("owner")
 			}
 			return err
 		}
@@ -214,6 +206,8 @@ func (m *PatchV1Services) validateTeams(formats strfmt.Registry) error {
 			if err := m.Teams[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("teams" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("teams" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -258,6 +252,8 @@ func (m *PatchV1Services) contextValidateFunctionalities(ctx context.Context, fo
 			if err := m.Functionalities[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("functionalities" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("functionalities" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -276,6 +272,8 @@ func (m *PatchV1Services) contextValidateLinks(ctx context.Context, formats strf
 			if err := m.Links[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -292,6 +290,8 @@ func (m *PatchV1Services) contextValidateOwner(ctx context.Context, formats strf
 		if err := m.Owner.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("owner")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("owner")
 			}
 			return err
 		}
@@ -308,6 +308,8 @@ func (m *PatchV1Services) contextValidateTeams(ctx context.Context, formats strf
 			if err := m.Teams[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("teams" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("teams" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

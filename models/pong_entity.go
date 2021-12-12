@@ -48,6 +48,8 @@ func (m *PongEntity) validateActor(formats strfmt.Registry) error {
 		if err := m.Actor.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("actor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("actor")
 			}
 			return err
 		}
@@ -76,6 +78,8 @@ func (m *PongEntity) contextValidateActor(ctx context.Context, formats strfmt.Re
 		if err := m.Actor.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("actor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("actor")
 			}
 			return err
 		}

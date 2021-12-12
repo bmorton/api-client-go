@@ -58,6 +58,10 @@ func NewGetV1TicketingProjectsParamsWithHTTPClient(client *http.Client) *GetV1Ti
    Typically these are written to a http.Request.
 */
 type GetV1TicketingProjectsParams struct {
+
+	// SupportsTicketTypes.
+	SupportsTicketTypes *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -111,6 +115,17 @@ func (o *GetV1TicketingProjectsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithSupportsTicketTypes adds the supportsTicketTypes to the get v1 ticketing projects params
+func (o *GetV1TicketingProjectsParams) WithSupportsTicketTypes(supportsTicketTypes *string) *GetV1TicketingProjectsParams {
+	o.SetSupportsTicketTypes(supportsTicketTypes)
+	return o
+}
+
+// SetSupportsTicketTypes adds the supportsTicketTypes to the get v1 ticketing projects params
+func (o *GetV1TicketingProjectsParams) SetSupportsTicketTypes(supportsTicketTypes *string) {
+	o.SupportsTicketTypes = supportsTicketTypes
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetV1TicketingProjectsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -118,6 +133,23 @@ func (o *GetV1TicketingProjectsParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
+
+	if o.SupportsTicketTypes != nil {
+
+		// query param supports_ticket_types
+		var qrSupportsTicketTypes string
+
+		if o.SupportsTicketTypes != nil {
+			qrSupportsTicketTypes = *o.SupportsTicketTypes
+		}
+		qSupportsTicketTypes := qrSupportsTicketTypes
+		if qSupportsTicketTypes != "" {
+
+			if err := r.SetQueryParam("supports_ticket_types", qSupportsTicketTypes); err != nil {
+				return err
+			}
+		}
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
